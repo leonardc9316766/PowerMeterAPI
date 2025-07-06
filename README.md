@@ -1,43 +1,96 @@
-PowerMeterAPI Quickstart
-Instantly track and log energy usage & carbon emissions by API
+# ⚡ PowerMeterAPI
 
-What is PowerMeterAPI?
-A drop-in API that lets you track, log, and audit energy usage (kWh) and carbon emissions (CO₂) for any cloud, AI, or GPU workload. Every API call returns a verifiable, audit-ready receipt.
+> 🧠 Route your API traffic to the cleanest electricity grid in real-time.  
+> 🚀 Infrastructure just got smarter — and quietly cleaner.
 
-Get Started in 60 Seconds
-Step 1 — Sign Up & Get Your API Key
-Go to app.powermeterapi.dev
-Create an account and copy your API key from the dashboard
-Step 2 — Make Your First Request
-Paste this command into your terminal (replace the key with your actual API key):
-curl -H "X-API-Key: pm_live_your_actual_key_here" \
-     https://9ebd978c-21d3-4246-8762-5d7c801619a8-00-cldu5hvo6tqm.picard.replit.dev/v1/usage/summary
-You’ll get a response like:
+---
+
+## 🧩 What It Does
+
+PowerMeterAPI is a **real-time, carbon-aware traffic router**. It dynamically selects the cleanest electricity region (starting with California ISO) for your API requests — improving infrastructure efficiency, reducing emissions, and avoiding latency spikes caused by grid congestion.
+
+This is not a report or dashboard. It’s a live routing layer that actually makes infrastructure decisions smarter, cleaner, and more resilient.
+
+---
+
+## 🌎 Why It Matters
+
+Most API traffic today is routed based on latency or availability — but not **energy cleanliness** or **grid stability**.
+
+- 🟢 Clean grids = faster, more stable infrastructure
+- 🔴 Dirty grids = legacy risk, latency spikes, hidden cost
+
+By routing traffic based on real-time CO₂ intensity, you unlock smarter infrastructure decisions with no code changes.
+
+---
+
+## 🔧 How It Works
+
+1. You send a request to `https://api.powermeterapi.dev/route`
+2. The system evaluates real-time carbon intensity (currently for CAISO)
+3. It returns the cleanest region for your API to target
+4. (Coming soon: Direct proxy routing and multi-cloud auto-routing)
+
+---
+
+## 📦 Plans & Pricing
+
+| Tier      | Monthly Price | API Calls Included | Regions       |
+|-----------|---------------|--------------------|----------------|
+| Dev       | $49           | 50,000             | California ISO |
+| Core      | $400          | 500,000            | CAISO + [Beta regions] |
+| Scale     | $1,250        | 2M+                | Global (coming soon) |
+
+🔓 Use promo code `POWERMETER30` for a **free 30-day Dev Tier trial**
+
+---
+
+## 🚀 Quickstart
+
+```bash
+curl -X POST https://api.powermeterapi.dev/route \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"source_region": "us-west1", "payload_size": 128}'
+
+Response:
+
 {
-  "kwh": 0.0,
-  "co2_g": 0.0,
-  "fee_usd": 0.0,
-  "plan": "dev"
+  "chosen_region": "CAISO",
+  "co2_g_per_kwh": 92,
+  "total_emissions_g": 11.78,
+  "alternatives": [
+    { "region": "CAISO", "co2_g_per_kwh": 92 },
+    { "region": "BPA", "co2_g_per_kwh": 115 }
+  ]
 }
-Step 3 — Track a Job (optional)
-Submit energy usage from a job or workload:
-curl -X POST \
-  -H "X-API-Key: pm_live_your_actual_key_here" \
-  -H "Content-Type: application/json" \
-  -d '{"device_id":"test-01","watt_seconds":10000,"geo_iso":"US","scope":"compute"}' \
-  https://9ebd978c-21d3-4246-8762-5d7c801619a8-00-cldu5hvo6tqm.picard.replit.dev/v1/report
-Step 4 — Get Your Audit-Ready Receipts
-List all carbon receipts for your jobs:
-curl -H "X-API-Key: pm_live_your_actual_key_here" \
-     https://9ebd978c-21d3-4246-8762-5d7c801619a8-00-cldu5hvo6tqm.picard.replit.dev/v1/receipts
 
+📚 Docs
 
+📖 Full documentation: https://powermeterapi.dev/docs
+💬 Support: powermeterapi@gmail.com
+🔗 App dashboard: https://app.powermeterapi.dev
 
+🛠 Tech Stack
+	•	Python + FastAPI
+	•	Supabase for DB
+	•	Stripe for billing & usage
+	•	CAISO live grid data feed
+	•	Future: Multi-region routing, SDKs, and Terraform plugins
 
+🌱 Roadmap
+	•	CAISO real-time support
+	•	Developer dashboard + API key issuance
+	•	Tiered billing with metered usage
+	•	Multi-region rollout (ERCOT, PJM, etc.)
+	•	Auto-proxy routing mode (infrastructure-native)
+	•	Open-source lightweight router SDK
 
+💡 Who It’s For
+	•	Cloud Ops & SRE teams optimizing API delivery
+	•	Devs building ESG-aligned infrastructure
+	•	Platforms needing reliable, low-carbon delivery logic
 
+🧠 Made by humans, for machines.
 
-
-
-Need help? Email powermeterapi@gmail.com
-
+PowerMeterAPI turns real-time energy intelligence into actionable infrastructure routing
